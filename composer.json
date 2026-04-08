@@ -1,5 +1,5 @@
 {
-  "name": "your-vendor/your-package",
+  "name": "andrewdyer/json-error-handler",
   "description": "",
   "type": "library",
   "autoload": {
