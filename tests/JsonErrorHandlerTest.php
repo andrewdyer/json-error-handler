@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace YourVendor\YourPackage\Tests;
 
 use PHPUnit\Framework\TestCase;
-use YourVendor\YourPackage\Example;
+use YourVendor\YourPackage\JsonErrorHandler;
 
-class ExampleTest extends TestCase
+class JsonErrorHandlerTest extends TestCase
 {
     public function testSayHello(): void
     {
-        $pkg = new Example();
+        $pkg = new JsonErrorHandler();
         $this->assertSame('Hello, John!', $pkg->sayHello('John'));
     }
 }

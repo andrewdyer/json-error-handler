@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace YourVendor\YourPackage;
 
-final class Example
+final class JsonErrorHandler
 {
     public function sayHello(string $name): string
     {
