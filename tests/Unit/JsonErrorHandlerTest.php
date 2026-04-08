@@ -2,8 +2,9 @@
 
 declare(strict_types=1);
 
-namespace YourVendor\YourPackage\Tests\Unit;
+namespace AndrewDyer\JsonErrorHandler\Tests\Unit;
 
+use AndrewDyer\JsonErrorHandler\JsonErrorHandler;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -12,7 +13,6 @@ use Slim\CallableResolver;
 use Slim\Exception\HttpNotFoundException;
 use Slim\Psr7\Factory\ResponseFactory;
 use Slim\Psr7\Factory\ServerRequestFactory;
-use YourVendor\YourPackage\JsonErrorHandler;
 
 /**
  * Unit tests for JsonErrorHandlerTest.

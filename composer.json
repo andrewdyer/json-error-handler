@@ -4,12 +4,12 @@
   "type": "library",
   "autoload": {
     "psr-4": {
-      "YourVendor\\YourPackage\\": "src/"
+      "AndrewDyer\\JsonErrorHandler\\": "src/"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "YourVendor\\YourPackage\\Tests\\": "tests/"
+      "AndrewDyer\\JsonErrorHandler\\Tests\\": "tests/"
     }
   },
   "require": {
