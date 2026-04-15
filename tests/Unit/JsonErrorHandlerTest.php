@@ -15,7 +15,7 @@ use Slim\Psr7\Factory\ResponseFactory;
 use Slim\Psr7\Factory\ServerRequestFactory;
 
 /**
- * Unit tests for JsonErrorHandlerTest.
+ * Unit tests for JsonErrorHandler.
  */
 class JsonErrorHandlerTest extends TestCase
 {
