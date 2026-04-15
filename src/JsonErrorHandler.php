@@ -47,7 +47,7 @@ final class JsonErrorHandler extends ErrorHandler
     ) {
         parent::__construct($callableResolver, $responseFactory, $logger);
 
-        $this->jsonEncodeFlags = $jsonEncodeFlags;
+        $this->jsonEncodeFlags = $jsonEncodeFlags & ~JSON_THROW_ON_ERROR;
     }
 
     /**

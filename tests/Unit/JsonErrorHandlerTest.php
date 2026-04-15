@@ -127,6 +127,25 @@ class JsonErrorHandlerTest extends TestCase
     }
 
     /**
+     * Asserts that JSON_THROW_ON_ERROR is masked out from the provided encoding flags.
+     */
+    public function testMasksOutJsonThrowOnErrorFromEncodingFlags(): void
+    {
+        $request = $this->createRequest();
+        $exception = new RuntimeException("Invalid UTF-8 byte: \xB1");
+
+        $response = $this->invokeHandler($request, $exception, true, JSON_PRETTY_PRINT | JSON_THROW_ON_ERROR);
+        $body = $this->decodeJson($response);
+
+        $this->assertSame(500, $response->getStatusCode());
+        $this->assertSame('SERVER_ERROR', $body['error']['type'] ?? null);
+        $this->assertSame(
+            'An internal error has occurred while processing your request.',
+            $body['error']['description'] ?? null
+        );
+    }
+
+    /**
      * Creates a server request configured for JSON error responses.
      *
      * @return ServerRequestInterface Returns the JSON server request.
@@ -145,15 +164,17 @@ class JsonErrorHandlerTest extends TestCase
      * @param ServerRequestInterface $request Indicates the request used for handler invocation.
      * @param \Throwable $exception Indicates the exception to process.
      * @param bool $displayErrorDetails Indicates whether detailed exception messages are enabled.
+     * @param int $jsonEncodeFlags Indicates JSON encoding flags for payload serialisation.
      * @return ResponseInterface Returns the generated error response.
      * @internal
      */
     private function invokeHandler(
         ServerRequestInterface $request,
         \Throwable $exception,
-        bool $displayErrorDetails
+        bool $displayErrorDetails,
+        int $jsonEncodeFlags = JSON_PRETTY_PRINT
     ): ResponseInterface {
-        $handler = new JsonErrorHandler(new CallableResolver(), new ResponseFactory());
+        $handler = new JsonErrorHandler(new CallableResolver(), new ResponseFactory(), null, $jsonEncodeFlags);
 
         return $handler($request, $exception, $displayErrorDetails, false, false);
     }
