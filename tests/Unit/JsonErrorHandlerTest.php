@@ -11,6 +11,7 @@ use Psr\Http\Message\ServerRequestInterface;
 use RuntimeException;
 use Slim\CallableResolver;
 use Slim\Exception\HttpNotFoundException;
+use Slim\Exception\HttpNotImplementedException;
 use Slim\Psr7\Factory\ResponseFactory;
 use Slim\Psr7\Factory\ServerRequestFactory;
 
@@ -34,6 +35,41 @@ class JsonErrorHandlerTest extends TestCase
         $this->assertSame('application/json', $response->getHeaderLine('Content-Type'));
         $this->assertSame('RESOURCE_NOT_FOUND', $body['error']['type'] ?? null);
         $this->assertSame('Not found.', $body['error']['description'] ?? null);
+    }
+
+    /**
+     * Asserts that 5xx HTTP exception messages are hidden when error details are disabled.
+     */
+    public function testHides5xxHttpExceptionMessageWhenDisplayErrorDetailsIsDisabled(): void
+    {
+        $request = $this->createRequest();
+        $exception = new HttpNotImplementedException($request);
+
+        $response = $this->invokeHandler($request, $exception, false);
+        $body = $this->decodeJson($response);
+
+        $this->assertSame(501, $response->getStatusCode());
+        $this->assertSame('NOT_IMPLEMENTED', $body['error']['type'] ?? null);
+        $this->assertSame(
+            'An internal error has occurred while processing your request.',
+            $body['error']['description'] ?? null
+        );
+    }
+
+    /**
+     * Asserts that 5xx HTTP exception messages are included when error details are enabled.
+     */
+    public function testIncludes5xxHttpExceptionMessageWhenDisplayErrorDetailsIsEnabled(): void
+    {
+        $request = $this->createRequest();
+        $exception = new HttpNotImplementedException($request);
+
+        $response = $this->invokeHandler($request, $exception, true);
+        $body = $this->decodeJson($response);
+
+        $this->assertSame(501, $response->getStatusCode());
+        $this->assertSame('NOT_IMPLEMENTED', $body['error']['type'] ?? null);
+        $this->assertSame('Not implemented.', $body['error']['description'] ?? null);
     }
 
     /**

@@ -64,7 +64,11 @@ final class JsonErrorHandler extends ErrorHandler
 
         if ($exception instanceof HttpException) {
             $statusCode = $exception->getCode() > 0 ? $exception->getCode() : 500;
-            $description = $exception->getMessage();
+
+            if ($statusCode < 500 || $this->displayErrorDetails) {
+                $description = $exception->getMessage();
+            }
+
             $error = $this->mapHttpExceptionToActionError($exception, $description);
         } elseif ($exception instanceof Throwable && $this->displayErrorDetails) {
             $description = $exception->getMessage();
