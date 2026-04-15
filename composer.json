@@ -1,23 +1,29 @@
 {
-  "name": "your-vendor/your-package",
+  "name": "andrewdyer/json-error-handler",
   "description": "",
   "type": "library",
   "autoload": {
     "psr-4": {
-      "YourVendor\\YourPackage\\": "src/"
+      "AndrewDyer\\JsonErrorHandler\\": "src/"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "YourVendor\\YourPackage\\Tests\\": "tests/"
+      "AndrewDyer\\JsonErrorHandler\\Tests\\": "tests/"
     }
   },
   "require": {
-    "php": "^8.3"
+    "php": "^8.3",
+    "andrewdyer/actions": "^0.1",
+    "psr/http-factory": "^1.1",
+    "psr/http-message": "^1.1 || ^2.0",
+    "psr/log": "^1.1 || ^2.0 || ^3.0",
+    "slim/slim": "^4.15"
   },
   "require-dev": {
     "friendsofphp/php-cs-fixer": "^3.75",
-    "phpunit/phpunit": "^10.5"
+    "phpunit/phpunit": "^10.5",
+    "slim/psr7": "^1.8"
   },
   "scripts": {
     "cs": "php-cs-fixer fix",
