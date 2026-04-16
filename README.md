@@ -65,17 +65,32 @@ $errorHandler = new JsonErrorHandler(
 $errorMiddleware->setDefaultErrorHandler($errorHandler);
 ```
 
-### 3. Run the application
+### 3. Register routes
+
+Register routes to handle incoming requests:
+
+```php
+use Psr\Http\Message\ResponseInterface as Response;
+use Psr\Http\Message\ServerRequestInterface as Request;
+use Slim\Exception\HttpNotFoundException;
+
+$app->get('/hello', function (Request $request, Response $response): Response {
+    $response->getBody()->write(json_encode(['message' => 'Hello, world.']));
+    return $response->withHeader('Content-Type', 'application/json');
+});
+
+$app->get('/error', function (Request $request, Response $response): Response {
+    throw new HttpNotFoundException($request);
+});
+```
+
+### 4. Run the application
 
 ```php
 $app->run();
 ```
 
-## Usage
-
-The handler covers the common error handling setup and can be extended with additional configuration where needed.
-
-### Custom JSON encoding flags
+### 5. Custom JSON encoding flags (optional)
 
 By default, payloads are encoded with `JSON_PRETTY_PRINT`. Custom flags can be passed as the fourth constructor argument:
 
@@ -89,6 +104,45 @@ $errorHandler = new JsonErrorHandler(
 ```
 
 Note that `JSON_THROW_ON_ERROR` is always masked out internally to prevent encoding failures from cascading during error handling.
+
+## Usage
+
+Once the handler is registered, Slim will route exceptions through `JsonErrorHandler` and return structured JSON error responses.
+
+### Successful request
+
+```
+GET /hello
+Accept: application/json
+```
+
+**Response: 200 OK**
+
+```json
+{
+  "message": "Hello, world."
+}
+```
+
+### Error request
+
+```
+GET /error
+Accept: application/json
+```
+
+**Response: 404 Not Found**
+
+```json
+{
+  "error": {
+    "type": "RESOURCE_NOT_FOUND",
+    "description": "Not found."
+  }
+}
+```
+
+## Advanced Usage
 
 ### Shutdown handler integration
 
