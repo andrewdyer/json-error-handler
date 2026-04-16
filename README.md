@@ -181,6 +181,8 @@ $errorMiddleware->setDefaultErrorHandler($errorHandler);
 
 $request = ServerRequestCreatorFactory::create()->createServerRequestFromGlobals();
 
+$responseEmitter = new ResponseEmitter();
+
 $shutdownHandler = new ShutdownHandler(
     $request,
     new CallableErrorResponder(
@@ -193,14 +195,16 @@ $shutdownHandler = new ShutdownHandler(
         )
     ),
     new CallableResponseEmitter(
-        static fn ($response) => (new ResponseEmitter())->emit($response)
+        static fn ($response) use ($responseEmitter) => $responseEmitter->emit($response)
     ),
     $displayErrorDetails
 );
 
 register_shutdown_function($shutdownHandler);
 
-$app->run();
+$response = $app->handle($request);
+
+$responseEmitter->emit($response);
 ```
 
 Refer to the [shutdown-handler documentation](https://github.com/andrewdyer/shutdown-handler) for full details on implementing a response emitter.
