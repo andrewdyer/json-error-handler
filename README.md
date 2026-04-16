@@ -65,6 +65,19 @@ $errorHandler = new JsonErrorHandler(
 $errorMiddleware->setDefaultErrorHandler($errorHandler);
 ```
 
+By default, payloads are encoded with `JSON_PRETTY_PRINT`. Custom flags can be passed as the fourth constructor argument:
+
+```php
+$errorHandler = new JsonErrorHandler(
+    $app->getCallableResolver(),
+    $app->getResponseFactory(),
+    logger: null,
+    jsonEncodeFlags: JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES
+);
+```
+
+Note that `JSON_THROW_ON_ERROR` is always masked out internally to prevent encoding failures from cascading during error handling.
+
 ### 3. Register routes
 
 Register routes to handle incoming requests:
@@ -89,21 +102,6 @@ $app->get('/error', function (Request $request, Response $response): Response {
 ```php
 $app->run();
 ```
-
-### 5. Custom JSON encoding flags (optional)
-
-By default, payloads are encoded with `JSON_PRETTY_PRINT`. Custom flags can be passed as the fourth constructor argument:
-
-```php
-$errorHandler = new JsonErrorHandler(
-    $app->getCallableResolver(),
-    $app->getResponseFactory(),
-    logger: null,
-    jsonEncodeFlags: JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES
-);
-```
-
-Note that `JSON_THROW_ON_ERROR` is always masked out internally to prevent encoding failures from cascading during error handling.
 
 ## Usage
 
