@@ -99,6 +99,8 @@ $app->get('/error', function (Request $request, Response $response): Response {
 
 ### 4. Run the application
 
+Start the application to begin handling incoming HTTP requests:
+
 ```php
 $app->run();
 ```
