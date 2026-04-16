@@ -44,8 +44,6 @@ Add the error middleware and set `JsonErrorHandler` as the default handler. The 
 ```php
 use AndrewDyer\JsonErrorHandler\JsonErrorHandler;
 
-// Controls whether exception messages are exposed in error responses.
-// Set to false in production to avoid leaking internal details.
 $displayErrorDetails = true;
 
 $errorMiddleware = $app->addErrorMiddleware(
@@ -54,8 +52,6 @@ $errorMiddleware = $app->addErrorMiddleware(
     logErrorDetails: true
 );
 
-// A PSR-3 logger can be passed as the third argument to enable error logging.
-// Monolog (https://github.com/Seldaek/monolog) is a popular choice for this.
 $errorHandler = new JsonErrorHandler(
     $app->getCallableResolver(),
     $app->getResponseFactory(),
@@ -64,6 +60,8 @@ $errorHandler = new JsonErrorHandler(
 
 $errorMiddleware->setDefaultErrorHandler($errorHandler);
 ```
+
+> **Note:** A PSR-3 logger can be passed as the third argument to enable error logging. [Monolog](https://github.com/Seldaek/monolog) is a popular choice for this.
 
 By default, payloads are encoded with `JSON_PRETTY_PRINT`. Custom flags can be passed as the fourth constructor argument:
 
@@ -180,8 +178,6 @@ $errorHandler = new JsonErrorHandler(
 
 $errorMiddleware->setDefaultErrorHandler($errorHandler);
 
-// Create the request before registering the shutdown handler so the same
-// request instance is available if a fatal error occurs during bootstrapping.
 $request = ServerRequestCreatorFactory::create()->createServerRequestFromGlobals();
 
 $shutdownHandler = new ShutdownHandler(
@@ -196,7 +192,7 @@ $shutdownHandler = new ShutdownHandler(
         )
     ),
     new CallableResponseEmitter(
-        static fn ($response) => $app->getResponseFactory() // replace with your emitter
+        static fn ($response) => $app->getResponseFactory()
     ),
     $displayErrorDetails
 );
