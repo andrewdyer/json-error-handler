@@ -159,6 +159,7 @@ use AndrewDyer\ShutdownHandler\Adapters\CallableResponseEmitter;
 use AndrewDyer\ShutdownHandler\ShutdownHandler;
 use Slim\Factory\AppFactory;
 use Slim\Factory\ServerRequestCreatorFactory;
+use Slim\ResponseEmitter;
 
 $app = AppFactory::create();
 
@@ -192,7 +193,7 @@ $shutdownHandler = new ShutdownHandler(
         )
     ),
     new CallableResponseEmitter(
-        static fn ($response) => $app->getResponseFactory()
+        static fn ($response) => (new ResponseEmitter())->emit($response)
     ),
     $displayErrorDetails
 );
