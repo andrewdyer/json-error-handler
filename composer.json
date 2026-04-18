@@ -2,6 +2,7 @@
   "name": "andrewdyer/json-error-handler",
   "description": "A structured JSON error handler for Slim Framework applications that maps exceptions to typed, consistent error payloads",
   "type": "library",
+  "license": "MIT",
   "autoload": {
     "psr-4": {
       "AndrewDyer\\JsonErrorHandler\\": "src/"
