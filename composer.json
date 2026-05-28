@@ -3,6 +3,18 @@
   "description": "A structured JSON error handler for Slim Framework applications that maps exceptions to typed, consistent error payloads",
   "type": "library",
   "license": "MIT",
+  "authors": [
+    {
+      "name": "Andrew Dyer",
+      "homepage": "https://andrewdyer.rocks",
+      "role": "Developer"
+    }
+  ],
+  "homepage": "https://github.com/andrewdyer/json-error-handler",
+  "support": {
+    "issues": "https://github.com/andrewdyer/json-error-handler/issues",
+    "source": "https://github.com/andrewdyer/json-error-handler"
+  },
   "autoload": {
     "psr-4": {
       "AndrewDyer\\JsonErrorHandler\\": "src/"
