@@ -1,15 +1,11 @@
-![JSON Error Handler](https://public-assets.andrewdyer.rocks/images/covers/json-error-handler.png)
-
-<p align="center">
-  <a href="https://packagist.org/packages/andrewdyer/json-error-handler"><img src="https://poser.pugx.org/andrewdyer/json-error-handler/v/stable?style=for-the-badge" alt="Latest Stable Version"></a>
-  <a href="https://packagist.org/packages/andrewdyer/json-error-handler"><img src="https://poser.pugx.org/andrewdyer/json-error-handler/downloads?style=for-the-badge" alt="Total Downloads"></a>
-  <a href="https://packagist.org/packages/andrewdyer/json-error-handler"><img src="https://poser.pugx.org/andrewdyer/json-error-handler/license?style=for-the-badge" alt="License"></a>
-  <a href="https://packagist.org/packages/andrewdyer/json-error-handler"><img src="https://poser.pugx.org/andrewdyer/json-error-handler/require/php?style=for-the-badge" alt="PHP Version Required"></a>
-</p>
-
 # JSON Error Handler
 
 A structured JSON error handler for [Slim Framework](https://www.slimframework.com/) applications that maps exceptions to typed, consistent error payloads.
+
+[![Latest Stable Version](http://poser.pugx.org/andrewdyer/json-error-handler/v?style=flat-square)](https://packagist.org/packages/andrewdyer/json-error-handler)
+[![Total Downloads](http://poser.pugx.org/andrewdyer/json-error-handler/downloads?style=flat-square)](https://packagist.org/packages/andrewdyer/json-error-handler)
+[![License](http://poser.pugx.org/andrewdyer/json-error-handler/license?style=flat-square)](https://packagist.org/packages/andrewdyer/json-error-handler)
+[![PHP Version Require](http://poser.pugx.org/andrewdyer/json-error-handler/require/php?style=flat-square)](https://packagist.org/packages/andrewdyer/json-error-handler)
 
 ## Introduction
 
