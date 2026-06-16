@@ -9,7 +9,7 @@ A structured JSON error handler for [Slim Framework](https://www.slimframework.c
 
 ## Introduction
 
-This library provides a JSON error handler for Slim applications. It extends Slim's built-in error handling to intercept exceptions and transform them into structured JSON responses, mapping HTTP exceptions to typed error payloads with appropriate status codes. The handler supports optional error detail exposure for debug environments and integrates directly with Slim's error middleware and shutdown handling workflows.
+This library extends Slim Framework's built-in error handling to intercept exceptions and transform them into well-formed JSON responses with appropriate HTTP status codes. It supports optional error detail exposure for debug environments and integrates directly with Slim's error middleware. For shutdown handling workflows, it can be paired with [andrewdyer/shutdown-handler](https://github.com/andrewdyer/shutdown-handler) to keep unhandled error responses consistent.
 
 ## Prerequisites
 
