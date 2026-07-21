@@ -35,7 +35,7 @@
   },
   "require": {
     "php": "^8.3",
-    "andrewdyer/actions": "^1.1",
+    "andrewdyer/actions": "^1.2",
     "psr/http-factory": "^1.1",
     "psr/http-message": "^1.1 || ^2.0",
     "psr/log": "^1.1 || ^2.0 || ^3.0",
