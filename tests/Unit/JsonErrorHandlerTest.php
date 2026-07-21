@@ -12,6 +12,7 @@ use RuntimeException;
 use Slim\CallableResolver;
 use Slim\Exception\HttpNotFoundException;
 use Slim\Exception\HttpNotImplementedException;
+use Slim\Exception\HttpTooManyRequestsException;
 use Slim\Psr7\Factory\ResponseFactory;
 use Slim\Psr7\Factory\ServerRequestFactory;
 
@@ -20,6 +21,23 @@ use Slim\Psr7\Factory\ServerRequestFactory;
  */
 class JsonErrorHandlerTest extends TestCase
 {
+    /**
+     * Asserts that HTTP too many requests exceptions are mapped to a structured rate-limit payload.
+     */
+    public function testRespondsWithMappedHttpTooManyRequestsPayload(): void
+    {
+        $request = $this->createRequest();
+        $exception = new HttpTooManyRequestsException($request, 'Rate limit exceeded');
+
+        $response = $this->invokeHandler($request, $exception, false);
+        $body = $this->decodeJson($response);
+
+        $this->assertSame(429, $response->getStatusCode());
+        $this->assertSame('application/json', $response->getHeaderLine('Content-Type'));
+        $this->assertSame('TOO_MANY_REQUESTS', $body['error']['type'] ?? null);
+        $this->assertSame('Rate limit exceeded', $body['error']['description'] ?? null);
+    }
+
     /**
      * Asserts that HTTP not found exceptions are mapped to a structured not found payload.
      */

@@ -15,6 +15,7 @@ use Slim\Exception\HttpForbiddenException;
 use Slim\Exception\HttpMethodNotAllowedException;
 use Slim\Exception\HttpNotFoundException;
 use Slim\Exception\HttpNotImplementedException;
+use Slim\Exception\HttpTooManyRequestsException;
 use Slim\Exception\HttpUnauthorizedException;
 use Slim\Handlers\ErrorHandler;
 use Slim\Interfaces\CallableResolverInterface;
@@ -108,6 +109,7 @@ final class JsonErrorHandler extends ErrorHandler
             $exception instanceof HttpForbiddenException => ActionError::insufficientPrivileges($description),
             $exception instanceof HttpBadRequestException => ActionError::badRequest($description),
             $exception instanceof HttpNotImplementedException => ActionError::notImplemented($description),
+            $exception instanceof HttpTooManyRequestsException => ActionError::tooManyRequests($description),
             default => ActionError::serverError($description),
         };
     }
